@@ -71,34 +71,41 @@ const TOPICS = {
 
 const SOURCES = ["Reuters", "Associated Press", "Bloomberg", "BBC News", "Financial Times", "Al Jazeera", "NPR", "The Guardian"];
 
+// Deterministic PRNG to avoid hydration errors
+let seed = 42;
+function seededRandom() {
+  const x = Math.sin(seed++) * 10000;
+  return x - Math.floor(x);
+}
+
 function getRandomItem<T>(arr: T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)];
+  return arr[Math.floor(seededRandom() * arr.length)];
 }
 
 function generateArticles(count: number, topic: string, dateOffsetDays: number): Article[] {
   const articles: Article[] = [];
-  const baseDate = new Date();
+  const baseDate = new Date("2026-04-25T12:00:00Z"); // Fix base date for deterministic results
   baseDate.setDate(baseDate.getDate() - dateOffsetDays);
 
   for (let i = 0; i < count; i++) {
     const pubDate = new Date(baseDate);
-    pubDate.setHours(pubDate.getHours() - Math.floor(Math.random() * 48)); // Scatter over 48 hours
+    pubDate.setHours(pubDate.getHours() - Math.floor(seededRandom() * 48)); // Scatter over 48 hours
     
     articles.push({
-      id: Math.floor(Math.random() * 1000000),
+      id: Math.floor(seededRandom() * 1000000),
       title: `Report: Developments in ${topic} announced by key figures`,
       source: getRandomItem(SOURCES),
-      url: `https://example.com/news/${Math.floor(Math.random() * 100000)}`,
+      url: `https://example.com/news/${Math.floor(seededRandom() * 100000)}`,
       published_at: pubDate.toISOString(),
     });
   }
   
-  // Ensure unique sources to boost credibility logically if we were doing it real
-  // But here we just randomize
   return articles;
 }
 
 export function generateMockData(count = 500): Narrative[] {
+  // Reset seed so every generation call produces the exact same array
+  seed = 42;
   const narratives: Narrative[] = [];
   
   for (let i = 0; i < count; i++) {
@@ -107,15 +114,15 @@ export function generateMockData(count = 500): Narrative[] {
     const template = getRandomItem(TEMPLATES[category]);
     const summary = template.replace("{topic}", topic.toLowerCase());
     
-    const articleCount = Math.floor(Math.random() * 5) + 2; // 2 to 6 articles
-    const dateOffsetDays = Math.floor(Math.random() * 60); // Spread over last 60 days
+    const articleCount = Math.floor(seededRandom() * 5) + 2; // 2 to 6 articles
+    const dateOffsetDays = Math.floor(seededRandom() * 60); // Spread over last 60 days
     
-    const baseDate = new Date();
+    const baseDate = new Date("2026-04-25T12:00:00Z"); // Fix base date for deterministic results
     baseDate.setDate(baseDate.getDate() - dateOffsetDays);
 
     // Trending logic: high credibility, recent (last 3 days), and a random chance
-    const credibility_score = Math.floor(Math.random() * 40) + 60; // 60-99
-    const isTrending = dateOffsetDays <= 3 && credibility_score > 85 && Math.random() > 0.5;
+    const credibility_score = Math.floor(seededRandom() * 40) + 60; // 60-99
+    const isTrending = dateOffsetDays <= 3 && credibility_score > 85 && seededRandom() > 0.5;
 
     narratives.push({
       id: i + 1,
