@@ -12,7 +12,7 @@
     "better-sqlite3": "latest",
     "clsx": "latest",
     "date-fns": "latest",
-    "framer-motion": "latest",
+    "framer-motion": "^12.38.0",
     "lucide-react": "latest",
     "next": "latest",
     "next-themes": "latest",

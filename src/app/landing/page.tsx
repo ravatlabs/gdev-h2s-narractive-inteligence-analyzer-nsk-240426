@@ -4,13 +4,20 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
   Activity,
+  AlertTriangle,
   ArrowRight,
   Brain,
+  Building2,
+  CheckCircle2,
   ChevronDown,
+  Coins,
+  Database,
   GitBranch,
   Globe,
   LineChart,
+  Lock,
   Search,
+  Server,
   Shield,
   Sparkles,
   Zap,
@@ -296,6 +303,154 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── Problem vs Solution (Investor Vision) ─────────────────────── */}
+      <section className="py-24 px-6 bg-muted/10 border-t border-border">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <span className="text-primary text-sm font-semibold tracking-widest uppercase">The Opportunity</span>
+            <h2 className="text-4xl font-bold text-foreground mt-3 mb-4">Combating a $78B Misinformation Crisis</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Current AI models are black boxes. We built a transparent architecture that exposes the "why" behind every credibility score.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="p-8 rounded-3xl border border-red-500/20 bg-red-500/5 dark:bg-red-500/10">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 rounded-xl bg-red-500/20">
+                  <AlertTriangle className="h-6 w-6 text-red-500" />
+                </div>
+                <h3 className="text-2xl font-bold text-red-500 dark:text-red-400">The Problem</h3>
+              </div>
+              <ul className="space-y-4">
+                {[
+                  "Algorithmic echo chambers amplify fake news faster than truth.",
+                  "Traditional fact-checking cannot scale to meet real-time social velocity.",
+                  "Existing AI tools hallucinate sources, damaging institutional trust."
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-muted-foreground">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-red-500 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="p-8 rounded-3xl border border-emerald-500/20 bg-emerald-500/5 dark:bg-emerald-500/10">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 rounded-xl bg-emerald-500/20">
+                  <CheckCircle2 className="h-6 w-6 text-emerald-500" />
+                </div>
+                <h3 className="text-2xl font-bold text-emerald-500 dark:text-emerald-400">Our Solution</h3>
+              </div>
+              <ul className="space-y-4">
+                {[
+                  "Heuristic AI layer ensures transparent, non-hallucinated scoring.",
+                  "Semantic clustering groups massive data streams instantly.",
+                  "Zero-latency static architecture scales infinitely on edge networks."
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-muted-foreground">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Technical Pipeline Visual ───────────────────────────────────── */}
+      <section className="py-24 px-6 border-t border-border">
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center mb-20">
+            <span className="text-primary text-sm font-semibold tracking-widest uppercase">Under the Hood</span>
+            <h2 className="text-4xl font-bold text-foreground mt-3 mb-4">How It Works</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              A robust 3-step pipeline designed for maximum transparency and speed.
+            </p>
+          </div>
+          
+          <div className="relative">
+            {/* Connecting Line (Desktop) */}
+            <div className="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-emerald-500 -translate-y-1/2 rounded-full opacity-20" />
+            
+            <div className="grid md:grid-cols-3 gap-8 relative z-10">
+              <div className="bg-card border border-border rounded-2xl p-6 shadow-xl relative group">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 h-12 w-12 rounded-full bg-indigo-500 flex items-center justify-center border-4 border-background text-white font-bold shadow-lg group-hover:scale-110 transition-transform">1</div>
+                <div className="mt-6 text-center">
+                  <Database className="h-10 w-10 text-indigo-500 mx-auto mb-4" />
+                  <h3 className="font-bold text-lg text-foreground mb-2">Ingestion</h3>
+                  <p className="text-sm text-muted-foreground">Aggregates high-velocity RSS feeds from 50+ global publishers into our secure data layer.</p>
+                </div>
+              </div>
+              <div className="bg-card border border-border rounded-2xl p-6 shadow-xl relative group mt-12 md:mt-0">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 h-12 w-12 rounded-full bg-violet-500 flex items-center justify-center border-4 border-background text-white font-bold shadow-lg group-hover:scale-110 transition-transform">2</div>
+                <div className="mt-6 text-center">
+                  <Brain className="h-10 w-10 text-violet-500 mx-auto mb-4" />
+                  <h3 className="font-bold text-lg text-foreground mb-2">Semantic Clustering</h3>
+                  <p className="text-sm text-muted-foreground">Natural Language Processing (NLP) identifies topic overlap to build narrative timelines.</p>
+                </div>
+              </div>
+              <div className="bg-card border border-border rounded-2xl p-6 shadow-xl relative group mt-12 md:mt-0">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 h-12 w-12 rounded-full bg-emerald-500 flex items-center justify-center border-4 border-background text-white font-bold shadow-lg group-hover:scale-110 transition-transform">3</div>
+                <div className="mt-6 text-center">
+                  <Shield className="h-10 w-10 text-emerald-500 mx-auto mb-4" />
+                  <h3 className="font-bold text-lg text-foreground mb-2">Credibility Output</h3>
+                  <p className="text-sm text-muted-foreground">Heuristics calculate 0-100 legitimacy scores based on source diversity and corroboration.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Enterprise API Mock ─────────────────────────────────────────── */}
+      <section className="py-24 px-6 bg-gradient-to-b from-indigo-500/5 to-transparent border-t border-border">
+        <div className="mx-auto max-w-5xl">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+            <div className="flex-1">
+              <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3 py-1 text-xs font-bold text-indigo-500 uppercase tracking-widest mb-6">
+                <Building2 className="h-3.5 w-3.5" /> B2B Monetization
+              </span>
+              <h2 className="text-4xl font-bold text-foreground mb-6">Enterprise API Access</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                Designed for financial institutions, hedge funds, and newsrooms to automatically verify market rumors against global data streams.
+              </p>
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-center gap-3 text-sm font-semibold text-foreground"><CheckCircle2 className="h-5 w-5 text-indigo-500" /> 10,000 requests per minute</li>
+                <li className="flex items-center gap-3 text-sm font-semibold text-foreground"><CheckCircle2 className="h-5 w-5 text-indigo-500" /> WebHook alert integration</li>
+                <li className="flex items-center gap-3 text-sm font-semibold text-foreground"><CheckCircle2 className="h-5 w-5 text-indigo-500" /> SOC2 Compliant Data Privacy</li>
+              </ul>
+              <button className="px-8 py-3.5 rounded-xl bg-foreground text-background font-bold shadow-xl hover:scale-105 transition-transform flex items-center gap-2">
+                <Coins className="h-4 w-4" /> View Enterprise Pricing
+              </button>
+            </div>
+            <div className="flex-1 w-full max-w-md">
+              <div className="rounded-2xl border border-border bg-card p-6 shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-violet-500" />
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-2 text-sm font-mono text-muted-foreground">
+                    <Server className="h-4 w-4" /> POST /api/v1/analyze
+                  </div>
+                  <div className="text-xs font-bold text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded">200 OK</div>
+                </div>
+                <pre className="text-[11px] font-mono text-indigo-400 bg-black/40 p-4 rounded-xl overflow-x-auto">
+{`{
+  "narrative_id": "ni_9f82kd9",
+  "credibility_score": 88,
+  "sources_corroborated": 12,
+  "topic_strength": {
+    "finance": 0.92,
+    "regulation": 0.81
+  },
+  "flags": ["high_velocity"]
+}`}
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── About Preview ────────────────────────────────────────────────── */}
       <section id="about-preview" className="py-24 px-6 bg-muted/20">
         <div className="mx-auto max-w-5xl grid md:grid-cols-2 gap-12 items-center">
@@ -305,7 +460,7 @@ export default function LandingPage() {
               Narractive Inteligence Analyzer
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Built by <strong>S. Ravat</strong> (BCA Final Year Student) with the guidance of 
+              Built by <strong>Sonu R.</strong> (BCA Final Year Student) with the guidance of 
               <strong> Mohit Bhimrajka</strong>, who introduced the team to Antigravity AI, and 
               bootcamp lead <strong>Pranav Walia</strong>, this project represents the edge of media transparency.
             </p>

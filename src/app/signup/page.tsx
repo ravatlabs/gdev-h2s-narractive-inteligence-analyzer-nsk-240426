@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Activity, ArrowRight, Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -70,11 +71,23 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [agreed, setAgreed] = useState(false);
+  const router = useRouter();
+
+  const handleMockOAuth = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      router.push("/dashboard");
+    }, 1500);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => setLoading(false), 1500);
+    setTimeout(() => {
+      setLoading(false);
+      router.push("/dashboard");
+    }, 1500);
   };
 
   return (
@@ -105,6 +118,7 @@ export default function SignupPage() {
           <div className="grid grid-cols-2 gap-4 mb-8">
             <button
               type="button"
+              onClick={handleMockOAuth}
               className="flex items-center justify-center gap-2.5 rounded-xl border border-border bg-card py-2.5 text-sm font-bold text-foreground hover:bg-muted transition-all"
             >
               <GithubIcon className="h-4 w-4" />
@@ -112,6 +126,7 @@ export default function SignupPage() {
             </button>
             <button
               type="button"
+              onClick={handleMockOAuth}
               className="flex items-center justify-center gap-2.5 rounded-xl border border-border bg-card py-2.5 text-sm font-bold text-foreground hover:bg-muted transition-all"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24">

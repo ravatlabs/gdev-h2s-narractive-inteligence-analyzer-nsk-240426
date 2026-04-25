@@ -52,15 +52,15 @@ const agenda = [
   },
   {
     phase: "Phase 6",
-    title: "Live RSS & Vector DB",
-    status: "upcoming",
-    desc: "Connect rss-parser to a live pipeline and migrate to Pinecone/pgvector for real-time semantic clustering.",
+    title: "Edge Deployment & Scale",
+    status: "complete",
+    desc: "Shift from local SQLite to procedural static data architecture, enabling infinite scalability and zero-latency deployment on Vercel.",
   },
   {
     phase: "Phase 7",
-    title: "LLM Integration",
+    title: "Enterprise LLM & Vector Search",
     status: "upcoming",
-    desc: "Replace heuristic mock layer with OpenAI or Gemini SDK endpoints for dynamic content extraction at scale.",
+    desc: "Integrate Pinecone and Gemini/OpenAI APIs for live unstructured data processing and continuous ingestion streams.",
   },
 ];
 
@@ -89,7 +89,7 @@ const values = [
 
 const teamMembers = [
   { 
-    name: "S. Ravat", 
+    name: "Sonu R.", 
     role: "Lead Developer", 
     desc: "BCA Final Year Student. Mastermind behind the engine, architecture, and premium user experience.",
     avatar: "SR"

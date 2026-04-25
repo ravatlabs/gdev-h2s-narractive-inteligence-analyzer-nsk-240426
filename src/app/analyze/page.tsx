@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { AnalysisResult } from "@/lib/ai";
-import { Search, Loader2, FileText, AlertTriangle, CheckCircle, ShieldAlert, HelpCircle, ExternalLink, BarChart3, Sparkles } from "lucide-react";
+import { Search, Loader2, FileText, AlertTriangle, CheckCircle, ShieldAlert, HelpCircle, ExternalLink, BarChart3, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
 
 const VERDICT_CONFIG = {
   LEGITIMATE:  { color: "text-emerald-500", bg: "bg-emerald-50 dark:bg-emerald-950/30", border: "border-emerald-200 dark:border-emerald-800", icon: CheckCircle,  bar: "bg-emerald-500" },
@@ -53,6 +53,7 @@ export default function AnalyzePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState("");
+  const [showExamples, setShowExamples] = useState(false);
 
   const handleAnalyze = async () => {
     if (!text.trim()) { setError("Please enter some text to analyze."); return; }
@@ -124,36 +125,6 @@ export default function AnalyzePage() {
               onChange={(e) => setText(e.target.value)}
             />
             
-            {/* Example Queries */}
-            <div className="space-y-2">
-              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest px-1">Try these examples</p>
-              <div className="flex flex-wrap gap-1.5">
-                {[
-                  "Apple CEO Tim Cook announced today that Apple will commit $500B to US manufacturing jobs over the next five years, focusing on semiconductor chip factories in Ohio and Arizona to secure the domestic supply chain.",
-                  "A massive breakthrough in global fusion energy has been reached by an international team of scientists in 2026, marking a significant milestone towards clean and limitless commercial power generation within the decade.",
-                  "Recent reports from top sources like Reuters suggest that Nvidia is planning to build a large-scale AI chip factory in Delhi, India, following a strategic meeting with the local technology minister to bolster Asian semiconductor sovereignty.",
-                  "The 2026 Climate Consensus report shows that global average temperatures have risen by record levels this year, leading to a new international pact for sub-sea flood barriers and urban heat island mitigation in coastal cities.",
-                  "Niche reports discuss a growing dispute over Arctic mineral rights as melting ice surfaces rich rare earth deposits, leading to a multi-national standoff between Arctic Council members over extraction sovereignty in 2026.",
-                  "Secret sources claim that technology giants are allegedly using an exclusive leak to cover up a hidden truth about autonomous drone delivery safety risks that no one is talking about or wants the public to know.",
-                  "SpaceX has successfully completed the first major habitation test for its Mars Colony project in early 2026, with astronauts spending 90 days in a modular habitat to prove long-term survival capabilities in high-radiation environments.",
-                  "The Central Bank has launched a new cross-border pilot program for the Digital Rupee in collaboration with several Asian nations, aiming to standardize digital currency transactions and reduce global reliance on traditional banking rails.",
-                  "New quantum cryptography standards for 2026 have been officially proposed by a coalition of open-source security experts to protect international financial data against the threat of early-stage quantum computing decryption.",
-                  "The World Health Organization (WHO) is currently monitoring reports of a potential new flu virus strain in Asia that may have shown early signs of human-to-human transmission in small rural communities near major travel hubs."
-                ].map(example => (
-                  <button
-                    key={example}
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setText(example);
-                    }}
-                    className="text-[10px] text-left leading-relaxed px-3 py-2 rounded-lg border bg-muted/50 hover:bg-muted hover:border-primary/30 transition-all w-full relative z-10 pointer-events-auto active:scale-[0.98]"
-                  >
-                    "{example.slice(0, 80)}..."
-                  </button>
-                ))}
-              </div>
-            </div>
             {error && (
               <div className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/20 px-3 py-2 rounded-lg border border-red-200 dark:border-red-900">
                 <AlertTriangle className="h-4 w-4 shrink-0" /> {error}
@@ -162,14 +133,57 @@ export default function AnalyzePage() {
             <button
               onClick={handleAnalyze}
               disabled={isLoading || !text.trim()}
-              className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:bg-primary/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-indigo-600 dark:bg-gradient-to-r dark:from-indigo-600 dark:to-violet-600 text-white shadow-xl shadow-indigo-500/20 py-4 rounded-xl font-bold hover:bg-indigo-500 dark:hover:from-indigo-500 dark:hover:to-violet-500 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
               {isLoading ? "Analyzing legitimacy..." : "Analyze Legitimacy"}
             </button>
-            <p className="text-center text-xs text-muted-foreground">
+            <p className="text-center text-xs text-muted-foreground font-medium">
               Matches against 50+ verified news events from 9 topic domains (April 2026)
             </p>
+
+            {/* Example Queries (Collapsible) */}
+            <div className="mt-4 border-t border-border pt-4">
+              <button 
+                onClick={() => setShowExamples(!showExamples)}
+                className="flex items-center justify-between w-full text-[10px] font-bold text-muted-foreground uppercase tracking-widest px-1 hover:text-foreground transition-colors"
+              >
+                Try these examples
+                {showExamples ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+              </button>
+              
+              {showExamples && (
+                <div className="flex flex-col gap-2 mt-3 animate-in slide-in-from-top-2 fade-in duration-200">
+                  {[
+                    "Apple CEO Tim Cook announced today that Apple will commit $500B to US manufacturing jobs over the next five years, focusing on semiconductor chip factories in Ohio and Arizona to secure the domestic supply chain.",
+                    "A massive breakthrough in global fusion energy has been reached by an international team of scientists in 2026, marking a significant milestone towards clean and limitless commercial power generation within the decade.",
+                    "Recent reports from top sources like Reuters suggest that Nvidia is planning to build a large-scale AI chip factory in Delhi, India, following a strategic meeting with the local technology minister to bolster Asian semiconductor sovereignty.",
+                    "The 2026 Climate Consensus report shows that global average temperatures have risen by record levels this year, leading to a new international pact for sub-sea flood barriers and urban heat island mitigation in coastal cities.",
+                    "Niche reports discuss a growing dispute over Arctic mineral rights as melting ice surfaces rich rare earth deposits, leading to a multi-national standoff between Arctic Council members over extraction sovereignty in 2026.",
+                    "Secret sources claim that technology giants are allegedly using an exclusive leak to cover up a hidden truth about autonomous drone delivery safety risks that no one is talking about or wants the public to know.",
+                    "SpaceX has successfully completed the first major habitation test for its Mars Colony project in early 2026, with astronauts spending 90 days in a modular habitat to prove long-term survival capabilities in high-radiation environments.",
+                    "The Central Bank has launched a new cross-border pilot program for the Digital Rupee in collaboration with several Asian nations, aiming to standardize digital currency transactions and reduce global reliance on traditional banking rails.",
+                    "New quantum cryptography standards for 2026 have been officially proposed by a coalition of open-source security experts to protect international financial data against the threat of early-stage quantum computing decryption.",
+                    "The World Health Organization (WHO) is currently monitoring reports of a potential new flu virus strain in Asia that may have shown early signs of human-to-human transmission in small rural communities near major travel hubs.",
+                    "Unverified claims spreading on social media state that major banks are preparing to freeze all retail accounts next week in preparation for a global currency reset mandated by the IMF.",
+                    "According to multiple local outlets, the new experimental malaria vaccine rollout in Sub-Saharan Africa has shown an unprecedented 95% efficacy rate in early field trials this month."
+                  ].map(example => (
+                    <button
+                      key={example}
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setText(example);
+                        setShowExamples(false);
+                      }}
+                      className="text-xs text-left leading-relaxed px-4 py-3 rounded-xl border border-border bg-card hover:bg-indigo-500/5 hover:border-indigo-500/30 hover:text-indigo-600 dark:hover:text-indigo-300 transition-all w-full relative z-10 pointer-events-auto active:scale-[0.98] shadow-sm"
+                    >
+                      "{example.slice(0, 90)}..."
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

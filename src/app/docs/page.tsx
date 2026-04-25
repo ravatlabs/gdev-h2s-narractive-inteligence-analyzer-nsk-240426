@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Book, Cloud, Code, Cpu, Database, GraduationCap, LifeBuoy, Rocket, Search, Shield, Terminal } from "lucide-react";
+import { ArrowRight, Book, Cloud, Code, Cpu, Database, GraduationCap, LifeBuoy, Rocket, Search, Shield, Terminal, Network, Braces, Map } from "lucide-react";
 
 const documentationHub = [
   {
@@ -76,6 +76,30 @@ const documentationHub = [
     icon: GraduationCap,
     color: "text-amber-500",
     bg: "bg-amber-500/10"
+  },
+  {
+    title: "API Reference",
+    description: "Documentation for the AI analysis and narrative clustering REST endpoints.",
+    href: "/docs/api-reference",
+    icon: Braces,
+    color: "text-pink-500",
+    bg: "bg-pink-500/10"
+  },
+  {
+    title: "Static Data Architecture",
+    description: "Details on how we scaled the platform to handle 500+ items on Vercel Edge without a DB.",
+    href: "/docs/data-architecture",
+    icon: Network,
+    color: "text-cyan-500",
+    bg: "bg-cyan-500/10"
+  },
+  {
+    title: "Future Roadmap",
+    description: "Explore the transition to live RSS feeds, Pinecone vector search, and LLM SDKs.",
+    href: "/docs/future-roadmap",
+    icon: Map,
+    color: "text-orange-500",
+    bg: "bg-orange-500/10"
   }
 ];
 

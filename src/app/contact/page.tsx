@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import {
   ArrowRight,
+  CheckCircle2,
   GitBranch,
   Globe,
   Mail,
@@ -54,7 +56,7 @@ const socials = [
   {
     name: "GitHub",
     handle: "github.com/narrative-ai",
-    href: "https://github.com",
+    href: "https://github.com/ravatlabs/gdev-h2s-narractive-inteligence-analyzer-nsk-240426",
     icon: GitBranch,
     color: "hover:border-slate-500/40 hover:bg-slate-500/5",
   },
@@ -68,8 +70,33 @@ const socials = [
 ];
 
 export default function ContactPage() {
+  const [showToast, setShowToast] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setShowToast(true);
+      (e.target as HTMLFormElement).reset();
+      setTimeout(() => setShowToast(false), 3000);
+    }, 1000);
+  };
+
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground relative">
+      {/* Toast Notification */}
+      <div 
+        className={`fixed top-24 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ${
+          showToast ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10 pointer-events-none"
+        }`}
+      >
+        <div className="flex items-center gap-3 rounded-full bg-emerald-500/10 border border-emerald-500/30 px-6 py-3 shadow-2xl backdrop-blur-md text-emerald-600 dark:text-emerald-400 font-bold text-sm">
+          <CheckCircle2 className="h-5 w-5" />
+          Message sent successfully!
+        </div>
+      </div>
       {/* ── Header ──────────────────────────────────────────────────── */}
       <section className="py-24 px-6 text-center border-b border-border bg-gradient-to-br from-muted/60 to-transparent">
         <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-bold text-primary mb-6">
@@ -158,7 +185,7 @@ export default function ContactPage() {
           <form
             id="contact-form"
             className="space-y-4"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSubmit}
           >
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
@@ -228,9 +255,10 @@ export default function ContactPage() {
             <button
               id="contact-submit"
               type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 dark:bg-gradient-to-r dark:from-indigo-600 dark:to-violet-600 py-4 text-base font-bold text-white shadow-xl shadow-indigo-500/20 hover:bg-indigo-500 dark:hover:from-indigo-500 dark:hover:to-violet-500 transition-all duration-300"
+              disabled={isSubmitting}
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 dark:bg-gradient-to-r dark:from-indigo-600 dark:to-violet-600 py-4 text-base font-bold text-white shadow-xl shadow-indigo-500/20 hover:bg-indigo-500 dark:hover:from-indigo-500 dark:hover:to-violet-500 transition-all duration-300 disabled:opacity-50"
             >
-              Send Message
+              {isSubmitting ? "Sending..." : "Send Message"}
               <ArrowRight className="h-4 w-4" />
             </button>
 

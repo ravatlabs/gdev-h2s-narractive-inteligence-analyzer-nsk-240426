@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Activity, ArrowRight, Eye, EyeOff, Lock, Mail } from "lucide-react";
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -29,11 +30,23 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleMockOAuth = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      router.push("/dashboard");
+    }, 1500);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => setLoading(false), 1500);
+    setTimeout(() => {
+      setLoading(false);
+      router.push("/dashboard");
+    }, 1500);
   };
 
   return (
@@ -75,11 +88,19 @@ export default function LoginPage() {
 
           {/* Social login buttons */}
           <div className="grid grid-cols-2 gap-4">
-            <button className="flex items-center justify-center gap-2 rounded-xl border border-border bg-card py-2.5 text-sm font-semibold text-foreground hover:bg-muted transition-colors">
+            <button 
+              type="button" 
+              onClick={handleMockOAuth}
+              className="flex items-center justify-center gap-2 rounded-xl border border-border bg-card py-2.5 text-sm font-semibold text-foreground hover:bg-muted transition-colors"
+            >
               <GithubIcon className="h-4 w-4" />
               GitHub
             </button>
-            <button className="flex items-center justify-center gap-2 rounded-xl border border-border bg-card py-2.5 text-sm font-semibold text-foreground hover:bg-muted transition-colors">
+            <button 
+              type="button" 
+              onClick={handleMockOAuth}
+              className="flex items-center justify-center gap-2 rounded-xl border border-border bg-card py-2.5 text-sm font-semibold text-foreground hover:bg-muted transition-colors"
+            >
               <svg className="h-4 w-4" viewBox="0 0 24 24">
                 <path
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
